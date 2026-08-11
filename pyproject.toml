@@ -1,0 +1,24 @@
+[project]
+name = "zulu-project-1"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "Etsub", email = "sarinamehari@gmail.com" }
+]
+requires-python = ">=3.13"
+dependencies = [
+    "sqlmodel>=0.0.39",
+]
+
+[project.scripts]
+zulu-project-1 = "zulu_project_1:main"
+
+[build-system]
+requires = ["uv_build>=0.12.1,<0.13.0"]
+build-backend = "uv_build"
+
+[tool.uv.workspace]
+members = [
+    "sqlmodel",
+]
