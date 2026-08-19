@@ -14,3 +14,11 @@ class UserResponse(BaseModel):
     id: int
     username: str | None = None
     email: str
+
+class UserMember(BaseModel):
+    
+    username: str | None = None
+
+class userRole(BaseModel):
+    role: str
+    

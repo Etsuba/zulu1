@@ -1,28 +1,50 @@
-from fastapi import APIRouter
-from pydantic import BaseModel
-from app.schemas.tasks import TaskCreate, TaskUpdate, TaskResponse
+# app/routes/tasks.py
+from app.schemas.tasks import TaskCreate, TaskResponse, TaskUpdate
+from app.services.task import task_service
+from fastapi import APIRouter, HTTPException, status
 
-router = APIRouter()
-    
-@router.post("/workspace/{workspace_id}/tasks")
-def create_task(workspace_id: int, task: TaskCreate):
-    return {"message": f"Task '{task.title}' created successfully."}
+tasks_router = APIRouter()
 
 
-
-@router.delete("/workspace/{workspace_id}/tasks/{task_id}")
-def delete_task(workspace_id: int, task_id: int):
-    return {"message": f"Task with ID {task_id} deleted successfully."}
-
-
- 
-@router.get("/workspace/{workspace_id}/tasks/{task_id}")
-def get_task(workspace_id: int, task_id: int):
-    return {"message": f"Details of task with ID {task_id}."}
+@tasks_router.post(
+    "/tasks",
+    response_model=TaskResponse,
+    status_code=status.HTTP_201_CREATED,
+)
+def create_task(task: TaskCreate):
+  return task_service.create_task(task)
 
 
-@router.put("/workspace/{workspace_id}/tasks/{task_id}")
-def update_task(workspace_id: int, task_id: int, task: TaskUpdate):
-    return {"message": f"Task with ID {task_id} updated successfully."}
+@tasks_router.get("/tasks", response_model=list[TaskResponse])
+def list_all_tasks():
+  return task_service.list_tasks()
 
 
+@tasks_router.get("/tasks/{task_id}", response_model=TaskResponse)
+def get_task(task_id: int):
+  task = task_service.get_task(task_id)
+  if not task:
+    raise HTTPException(
+        status_code=status.HTTP_404_NOT_FOUND, detail="Task not found"
+    )
+  return task
+
+
+@tasks_router.put("/tasks/{task_id}", response_model=TaskResponse)
+def update_task(task_id: int, task: TaskUpdate):
+  updated_task = task_service.update_task(task_id, task)
+  if not updated_task:
+    raise HTTPException(
+        status_code=status.HTTP_404_NOT_FOUND, detail="Task not found"
+    )
+  return updated_task
+
+
+@tasks_router.delete("/tasks/{task_id}")
+def delete_task(task_id: int):
+  deleted = task_service.delete_task(task_id)
+  if not deleted:
+    raise HTTPException(
+        status_code=status.HTTP_404_NOT_FOUND, detail="Task not found"
+    )
+  return {"message": f"Task with ID {task_id} deleted successfully"}

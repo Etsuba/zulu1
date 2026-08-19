@@ -22,3 +22,6 @@ build-backend = "uv_build"
 members = [
     "sqlmodel",
 ]
+
+[tool.uv]
+package = false
