@@ -1,9 +1,9 @@
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field 
 
 class UserCreate(BaseModel):
     username: str | None = None
-    email: str
+    email: str = Field(description="Valid email address")
     password: str
 
 class UserLogin(BaseModel):
@@ -21,4 +21,9 @@ class UserMember(BaseModel):
 
 class userRole(BaseModel):
     role: str
+
+class UserUpdate(BaseModel):
+    username: str | None = None
+    email: str | None = None
+    password: str | None = None
     

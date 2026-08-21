@@ -1,4 +1,3 @@
-
 class TaskRepository:
 
   def __init__(self):
@@ -16,8 +15,8 @@ class TaskRepository:
   def find_by_id(self, task_id: int) -> dict | None:
     return self._tasks_db.get(task_id)
 
-  def find_all(self) -> list[dict]:
-    return list(self._tasks_db.values())
+  # def find_all(self) -> list[dict]:
+  #   return list(self._tasks_db.values())
 
   def update(self, task_id: int, update_data: dict) -> dict | None:
     task = self.find_by_id(task_id)
