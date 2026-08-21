@@ -32,22 +32,22 @@ This project provides a robust backend system for organizing workflows, user rol
 ```text
 zulu-project/
 ├── app/
-│   ├── main.py              # Application entry point & FastAPI instance
-│   ├── repositories/        # Data access layer & persistence logic
+│   ├── main.py              
+│   ├── repositories/        
 │   │   ├── __init__.py
 │   │   └── task_repository.py
-│   ├── routes/              # API endpoints and request routing
+│   ├── routes/              
 │   │   ├── __init__.py
 │   │   ├── auth.py
 │   │   ├── tasks.py
 │   │   └── workspace.py
-│   ├── schemas/             # Pydantic data validation models
+│   ├── schemas/             
 │   │   ├── auth.py
 │   │   ├── tasks.py
 │   │   └── workspace.py
-│   └── services/            # Business logic layer
+│   └── services/           
 │       ├── auth.py
 │       └── task.py
-├── pyproject.toml           # Project dependencies and configuration
+├── pyproject.toml          
 └── README.md
 ```
