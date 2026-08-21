@@ -35,7 +35,7 @@ def update_task(task_id: int, task: TaskUpdate):
   updated_task = task_service.update_task(task_id, task)
   if not updated_task:
     raise HTTPException(
-        status_code=status.HTTP_404_NOT_FOUND, detail="Task not found"
+        status_code=status.HTTP_404_NOT_FOUND, detail="Task not found to update"
     )
   return updated_task
 
@@ -45,6 +45,6 @@ def delete_task(task_id: int):
   deleted = task_service.delete_task(task_id)
   if not deleted:
     raise HTTPException(
-        status_code=status.HTTP_404_NOT_FOUND, detail="Task not found"
+        status_code=status.HTTP_404_NOT_FOUND, detail="Task not found to be deleted"
     )
   return {"message": f"Task with ID {task_id} deleted successfully"}
